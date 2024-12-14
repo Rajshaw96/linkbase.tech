@@ -1,10 +1,10 @@
-require('dotenv').config();
-const express = require('express');
-const connectDB = require('./config/db');
-const propertyRoutes = require('./routes/propertyRoutes');
-const connectRoutes = require('./routes/connectRoutes');
-const helmet = require('helmet');
-const cors = require('cors'); // Add this line
+require("dotenv").config();
+const express = require("express");
+const connectDB = require("./config/db");
+const propertyRoutes = require("./routes/propertyRoutes");
+const connectRoutes = require("./routes/connectRoutes");
+const helmet = require("helmet");
+const cors = require("cors"); // Add this line
 
 const app = express();
 
@@ -15,21 +15,21 @@ app.use(helmet());
 app.use(express.json()); // Replacing bodyParser with Express's built-in middleware
 
 // Configure CORS
-const allowedOrigins = ['https://linkbase.tech'];
+const allowedOrigins = ["https://linkbase.tech"];
 
 app.use(cors({
-  origin: function (origin, callback) {
+  origin: function(origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error("Not allowed by CORS"));
     }
-  }
+  },
 }));
 
 // Route handling
-app.use('/api/properties-details', propertyRoutes);
-app.use('/api/user-connect', connectRoutes);
+app.use("/api/properties-details", propertyRoutes);
+app.use("/api/user-connect", connectRoutes);
 
 const PORT = process.env.PORT || 5000;
 

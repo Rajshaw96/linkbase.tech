@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const ConnectSchema = new mongoose.Schema({
   id: String,
@@ -7,4 +7,4 @@ const ConnectSchema = new mongoose.Schema({
   UserEmailId: String,
 });
 
-module.exports = mongoose.model('Connect', ConnectSchema);
+module.exports = mongoose.model("Connect", ConnectSchema);
