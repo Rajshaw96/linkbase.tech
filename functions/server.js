@@ -27,8 +27,8 @@ app.use(cors({
   },
 }));
 
-app.get('/api/hello', (req, res) => {
-  res.send('Hello, Firebase!');
+app.get("/api/hello", (req, res) => {
+  res.send("Hello, Firebase!");
 });
 
 
