@@ -15,7 +15,7 @@ app.use(helmet());
 app.use(express.json()); // Replacing bodyParser with Express's built-in middleware
 
 // Configure CORS
-const allowedOrigins = ['http://localhost:3000'];
+const allowedOrigins = ['https://linkbase.tech'];
 
 app.use(cors({
   origin: function (origin, callback) {
