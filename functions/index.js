@@ -11,7 +11,7 @@ app.use(cors()); // Handle Cross-Origin Resource Sharing
 app.use(express.json()); // Parse JSON request bodies
 
 // Retrieve MongoDB URI from Firebase environment variables
-const mongoURI = functions.config().mongodb?.uri || process.env.MONGODB_URI;
+const mongoURI = functions.config().mongodb?.uri || process.env.MONGO_URI;
 
 // Handle missing MongoDB URI
 if (!mongoURI) {
