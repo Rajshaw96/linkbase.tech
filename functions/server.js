@@ -27,6 +27,11 @@ app.use(cors({
   },
 }));
 
+app.get('/api/hello', (req, res) => {
+  res.send('Hello, Firebase!');
+});
+
+
 // Route handling
 app.use("/api/properties-details", propertyRoutes);
 app.use("/api/user-connect", connectRoutes);
