@@ -12,7 +12,7 @@ const app = express();
 connectDB();
 
 app.use(helmet());
-app.use(express.json()); // Replacing bodyParser with Express's built-in middleware
+app.use(express.json());
 
 // Configure CORS
 const allowedOrigins = ["https://linkbase.tech"];
