@@ -10,25 +10,31 @@ const app = express();
 app.use(cors()); // Handle Cross-Origin Resource Sharing
 app.use(express.json()); // Parse JSON request bodies
 
-// Retrieve MongoDB URI from Firebase environment variables
-const mongoURI = functions.config().mongodb?.uri || process.env.MONGODB_URI;
+// Retrieve MongoDB URI from Firebase environment variables or process.env
+const mongoConfig = functions.config().mongodb || {};
+const mongoURI = mongoConfig.uri || process.env.MONGODB_URI;
 
 // Handle missing MongoDB URI
 if (!mongoURI) {
-  console.error("Error: MongoDB URI is not defined in Firebase config or environment variables.");
+  console.error("❌ Error: MongoDB URI is not defined in Firebase config or environment variables.");
   process.exit(1); // Exit the process with failure
 }
 
 // Connect to MongoDB
-mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then(() => console.log("✅ MongoDB connected successfully"))
-  .catch((err) => {
+const connectToMongoDB = async () => {
+  try {
+    await mongoose.connect(mongoURI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("✅ MongoDB connected successfully");
+  } catch (err) {
     console.error("❌ MongoDB connection failed:", err.message);
-    process.exit(1);
-  });
+    process.exit(1); // Exit the process with failure
+  }
+};
+
+connectToMongoDB();
 
 // Define a sample route
 app.get("/", (req, res) => {
@@ -39,4 +45,5 @@ app.get("/", (req, res) => {
 app.use("/api/connections", require("./routes/connectRoutes"));
 app.use("/api/properties", require("./routes/propertyRoutes"));
 
+// Export the app as a Firebase Cloud Function
 exports.api = functions.https.onRequest(app);
