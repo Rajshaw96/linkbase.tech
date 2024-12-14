@@ -11,7 +11,7 @@ app.use(cors()); // Handle Cross-Origin Resource Sharing
 app.use(express.json()); // Parse JSON request bodies
 
 // Retrieve MongoDB URI from Firebase environment variables
-const mongoURI = functions.config().mongodb?.uri || process.env.MONGO_URI;
+const mongoURI = functions.config().mongodb?.uri || process.env.MONGODB_URI;
 
 // Handle missing MongoDB URI
 if (!mongoURI) {
@@ -35,10 +35,8 @@ app.get("/", (req, res) => {
   res.status(200).send("Hello from Firebase Cloud Functions!");
 });
 
-// Example API route (replace with your routes)
-app.get("/api/example", (req, res) => {
-  res.json({ message: "This is an example API route." });
-});
+// Example API routes (replace with your routes)
+app.use("/api/connections", require("./routes/connectRoutes"));
+app.use("/api/properties", require("./routes/propertyRoutes"));
 
-// Export the Express app as a Firebase Cloud Function
 exports.api = functions.https.onRequest(app);
