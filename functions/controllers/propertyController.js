@@ -14,9 +14,11 @@ exports.getAllProperties = async (req, res) =>{
 exports.getPropertyById = async (req, res) =>{
   try {
     const property = await Property.findById(req.params.id);
-    if (!property)
+    if (!property){
       return res.status(404).json({message: "Property not found"});
-    res.json(property);
+    }{
+      res.json(property);
+    }
   } catch (err){
     res.status(500).json({message: err.message});
   }
@@ -41,9 +43,11 @@ exports.updateProperty = async (req, res) =>{
       req.body,
       {new: true}
     );
-    if (!updatedProperty)
+    if (!updatedProperty){
       return res.status(404).json({message: "Property not found"});
-    res.json(updatedProperty);
+    }{
+      res.json(updatedProperty);
+    }
   } catch (err){
     res.status(400).json({message: err.message});
   }
@@ -53,9 +57,11 @@ exports.updateProperty = async (req, res) =>{
 exports.deleteProperty = async (req, res) =>{
   try {
     const deletedProperty = await Property.findByIdAndDelete(req.params.id);
-    if (!deletedProperty)
+    if (!deletedProperty){
       return res.status(404).json({message: "Property not found"});
-    res.json({message: "Property deleted successfully"});
+    }{
+      res.json({message: "Property deleted successfully"});
+    }
   } catch (err){
     res.status(500).json({message: err.message});
   }

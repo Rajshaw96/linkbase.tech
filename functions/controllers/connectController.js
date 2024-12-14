@@ -14,9 +14,11 @@ exports.getAllConnections = async (req, res) =>{
 exports.getConnectionById = async (req, res) =>{
   try {
     const connection = await Connect.findById(req.params.id);
-    if (!connection)
+    if (!connection){
       return res.status(404).json({message: "Connection not found"});
-    res.json(connection);
+    }else{
+      res.json(connection);
+    }
   } catch (err){
     res.status(500).json({message: err.message});
   }
@@ -53,9 +55,11 @@ exports.updateConnection = async (req, res) =>{
 exports.deleteConnection = async (req, res) =>{
   try {
     const deletedConnection = await Connect.findByIdAndDelete(req.params.id);
-    if (!deletedConnection)
+    if (!deletedConnection){
       return res.status(404).json({message: "Connection not found"});
-    res.json({message: "Connection deleted successfully"});
+    }else{
+      res.json({message: "Connection deleted successfully"});
+    }
   } catch (err){
     res.status(500).json({message: err.message});
   }
