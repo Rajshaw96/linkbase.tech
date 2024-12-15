@@ -91,3 +91,52 @@ $("#loginBtn").on('click', function() {
         }
     });
 });
+
+
+document.getElementById("connectBtn").addEventListener("click", async () => {
+
+    const fullName = document.getElementById("fullName").value.trim();
+    const phoneNo = document.getElementById("phoneNo").value.trim();
+    const emailId = document.getElementById("emailId").value.trim();
+
+    // Create a data object to send to the API
+    const requestData = {
+        UserFullName: fullName,    // Matches backend field name
+        UserPhoneNo: phoneNo,      // Matches backend field name
+        UserEmailId: emailId,      // Matches backend field name
+    };
+
+    // API URL
+    const apiUrl = "http://localhost:8000/api/user-connect";
+
+    try {
+        // Make the API call using fetch
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(requestData),
+        });
+
+        // Check for HTTP errors
+        if (!response.ok) {
+            const errorDetails = await response.json();
+            throw new Error(errorDetails.message || `HTTP error! Status: ${response.status}`);
+        }
+
+        // Parse the response
+        const responseData = await response.json();
+
+        // Alert success message
+        alert("Data successfully added!!");
+        console.log("Response:", responseData);
+
+        // Clear input fields after successful submission
+        document.getElementById("fullName").value = "";
+        document.getElementById("phoneNo").value = "";
+        document.getElementById("emailId").value = "";
+    } catch (error) {
+        // Handle errors
+        console.error("Error:", error);
+        alert(`An error occurred: ${error.message}. Please try again.`);
+    }
+});
