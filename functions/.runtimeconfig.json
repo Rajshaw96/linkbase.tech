@@ -1,5 +1,0 @@
-{
-  "mongodb": {
-    "uri": "mongodb+srv://admin:ShGxFq03tpHI47d8@property-manager-cluste.mskks.mongodb.net/?retryWrites=true&w=majority&appName=Property-Manager-Cluster"
-  }
-}

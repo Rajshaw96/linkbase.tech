@@ -1,8 +1,0 @@
-{
-  "projects": {
-    "default": "linkbase-splash-page",
-    "production": "linkbase-splash-page"
-  },
-  "targets": {},
-  "etags": {}
-}
